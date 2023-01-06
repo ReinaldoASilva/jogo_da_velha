@@ -2,7 +2,7 @@ import random
 import os
 
 class TicTacToe:
-    def __init__(self):
+    def __init__ (self):
       self.reset()
 
     def print_board(self): #tabuleiro
@@ -39,7 +39,7 @@ class TicTacToe:
                 return
 
             elif dict_win["0"]:
-                self.done = ""
+                self.done = "o"
                 print('0 Venceu!')
                 return
             #empate
@@ -55,7 +55,7 @@ class TicTacToe:
                 return
     
     def get_player_move(self):
-        invalid_move = True
+        invalid_move=True
 
         while invalid_move:
             try:
@@ -65,7 +65,7 @@ class TicTacToe:
                 print('Digite a linha do seu próximo lance')
                 y = int(input())
 
-                if x > 2 or x < 0 or y > 0 or y < 0:
+                if x > 2 or x < 0 or y > 2 or y < 0:
                     print('Coordenadas inválidas')
 
                 if self.board[x][y] != " ":
@@ -75,18 +75,20 @@ class TicTacToe:
                 print(e)
                 continue
 
-            invalid_move = False
+            invalid_move=False
         self.board[x][y] = "X"
-
+        
     def make_move(self):
-
+        list_moves = []
         for i in range(3):
             for j in range(3):
                 if self.board[i][j] == " ":
-                    list_move.append((i,j))
+                    list_moves.append((i,j))
+
             if len(list_moves) > 0:
                 x, y = random.choice(list_moves)
                 self.board[x][y] = "0"
+
 TicTacToe = TicTacToe()
 TicTacToe.print_board()
 next = 0
@@ -94,7 +96,7 @@ next = 0
 while next == 0:
     os.system("clear")
     TicTacToe.print_board()
-    while TicTacToe.done == '':
+    while TicTacToe.done == "":
         TicTacToe.get_player_move()
         TicTacToe.make_move()
         os.system("clear")
