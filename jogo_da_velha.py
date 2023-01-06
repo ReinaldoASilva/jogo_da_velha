@@ -3,8 +3,7 @@ import os
 
 class TicTacToe:
     def __init__(self):
-        self.board = [[" "," "," "],[" "," "," "],[" "," "," "]]
-        self.done = ""
+      self.reset()
 
     def print_board(self): #tabuleiro
         print(" ")
@@ -16,11 +15,12 @@ class TicTacToe:
        
 
     def reset(self): #resetar tabuleiro
-        self.reset()
+        self.board = [[" ", " ", " "], [" ", " ", " "], [" ", " ", " "]]
+        self.done = ""
 
     def check_win_or_draw(self): #checkar quem ganhou
         dict_win = {}
-        for i in ['X', '0']:
+        for i in ["X", "0"]:
             #horizontais
             dict_win[i] = (self.board[0][0] == self.board[0][1] == self.board[0][2] == i)
             dict_win[i] = (self.board[1][0] == self.board[1][1] == self.board[1][2] == i) or dict_win[i]
@@ -33,28 +33,30 @@ class TicTacToe:
             dict_win[i] = (self.board[0][0] == self.board[1][1] == self.board[2][2] == i) or dict_win[i]
             dict_win[i] = (self.board[2][0] == self.board[1][1] == self.board[0][2] == i) or dict_win[i]
 
-            if dict_win['X']:
-                self.done = 'x'
-                print('X Venceu')
+            if dict_win["X"]:
+                self.done = "x"
+                print('X Venceu!')
                 return
-            elif dict_win['0']:
-                self.done = '0'
-                print('0 Venceu')
+
+            elif dict_win["0"]:
+                self.done = ""
+                print('0 Venceu!')
                 return
             #empate
             c = 0
             for i in range(3):
                 for j in range(3):
-                    if self.board[i][j] != ' ':
+                    if self.board[i][j] != "":
                         c += 1
                         break
             if c == 0:
-                self.done = 'd'
-                print('empate')
+                self.done = "d"
+                print('Empate!')
                 return
     
     def get_player_move(self):
-        invalid_move=True
+        invalid_move = True
+
         while invalid_move:
             try:
                 print('Digite a linha do seu próximo lance')
@@ -65,36 +67,37 @@ class TicTacToe:
 
                 if x > 2 or x < 0 or y > 0 or y < 0:
                     print('Coordenadas inválidas')
-                if self.board[x][y] == ' ':
+
+                if self.board[x][y] != " ":
                     print('Posição já preenchida')
                     continue
             except Exception as e:
                 print(e)
                 continue
+
             invalid_move = False
-        self.board[x][y] = 'X'
+        self.board[x][y] = "X"
 
     def make_move(self):
-        list_moves = []
 
         for i in range(3):
             for j in range(3):
-                if self.board[i][i] == ' ':
+                if self.board[i][j] == " ":
                     list_move.append((i,j))
             if len(list_moves) > 0:
                 x, y = random.choice(list_moves)
-                self.board[x][y] = '0'
+                self.board[x][y] = "0"
 TicTacToe = TicTacToe()
 TicTacToe.print_board()
 next = 0
 
 while next == 0:
-    os.system('clear')
+    os.system("clear")
     TicTacToe.print_board()
     while TicTacToe.done == '':
         TicTacToe.get_player_move()
         TicTacToe.make_move()
-        os.system('clear')
+        os.system("clear")
         TicTacToe.print_board()
         TicTacToe.check_win_or_draw()
 
